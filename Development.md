@@ -39,11 +39,11 @@ touch turbo.json
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint"
-}
+},
 "packageManager": "npm@10.7.0",
 "workspaces":[
     "apps/*"
-]
+],
 
 
 # create apps folder and craete nextjs and nestjs projects
@@ -53,7 +53,7 @@ cd apps
 npx create-next-app@latest frontend
 
 nest new api
-
+cd api
 # now change start:dev to dev in apps/api/package.json file
 # change port in apps/api/src/main from 3000 to 9000
 
@@ -219,8 +219,59 @@ main().then(() => {
 password?
 npx prisma migrate dev --name fixing passwords
 
-
 # add insdie apps/api/package.json scripts section
 "db:seed": "ts-node ./prisma/seed.ts"
 run
 npm run db:seed
+
+# setup graphql in nestjs application
+npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
+
+# setup graphql module inside app.module file
+ imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), "src/grahql/schema.gql")
+    }),
+    PrismaModule
+  ],
+
+# Create Post module
+nest g res post --no-spec
+
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) Y
+
+# Edit post.entity file
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+
+@ObjectType()
+export class Post {
+
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  title: string;
+
+  @Field({ nullable: true })
+  slug?: string;
+
+  @Field({ nullable: true })
+  thumbnail?: string;
+
+  @Field()
+  content: string;
+
+  @Field(() => Boolean)
+  published: boolean;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+}
+
+
