@@ -1,4 +1,8 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Comment } from 'src/comment/entities/comment.entity';
+import { Like } from 'src/like/entities/like.entity';
+import { Tag } from 'src/tag/entities/tag.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @ObjectType()
 export class Post {
@@ -26,6 +30,18 @@ export class Post {
 
   @Field()
   updatedAt: Date;
+
+  @Field(() => User)
+  authorId: User;
+
+  @Field(() => [Tag])
+  tags: Tag[]
+
+  @Field(() => [Comment])
+  comments: Comment[]
+
+  @Field(() => [Like])
+  likes: Like[]
 }
 
 

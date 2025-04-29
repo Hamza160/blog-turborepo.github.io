@@ -275,3 +275,157 @@ export class Post {
 }
 
 
+# create user module and user entity
+nest g res user --no-spec
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) Y
+
+# Edit user.entity
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Post } from 'src/post/entities/post.entity';
+
+@ObjectType()
+export class User {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  name: string;
+
+  @Field()
+  email: string;
+
+  @Field({ nullable: true })
+  bio?: string;
+
+  @Field({ nullable: true })
+  avatar?: string;
+
+  @Field(() => [Post])
+  posts?: Post[]
+}
+
+# Create comments module
+nest g res comment --no-spec
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) Y
+
+# Edit comment.entity
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Post } from 'src/post/entities/post.entity';
+import { User } from 'src/user/entities/user.entity';
+
+@ObjectType()
+export class Comment {
+  @Field(() => Int)
+  id: number;
+  @Field()
+  content: string;
+  @Field(() => Post)
+  post: Post;
+  @Field(() => User)
+  authorId: User;
+  @Field()
+  createdAt: Date
+}
+
+# Create tag module
+nest g res tag --no-spec
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) Y
+
+# Edit tag.entity
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Post } from 'src/post/entities/post.entity';
+
+@ObjectType()
+export class Tag {
+  @Field(() => Int)
+  id: number;
+  @Field()
+  name: string;
+  @Field(() => [Post])
+  posts: Post[]
+}
+
+# Create like module
+nest g res like --no-spec
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) Y
+
+# Edit like.entity
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Post } from 'src/post/entities/post.entity';
+import { User } from 'src/user/entities/user.entity';
+
+@ObjectType()
+export class Like {
+  @Field(() => Int)
+  id: number;
+  @Field(() => User)
+  user: User
+  @Field(() => Post)
+  post: Post;
+  @Field()
+  createdAt: Date;
+}
+
+
+# now update user.entity
+@Field(() => [Comment])
+  comments: Comment[]
+
+# now edit post.entity
+@Field(() => User)
+  authorId: User;
+
+  @Field(() => [Tag])
+  tags: Tag[]
+
+  @Field(() => [Comment])
+  comments: Comment[]
+
+  @Field(() => [Like])
+  likes: Like[]
+
+# create auth moduel
+nest g res auth --no-spec
+choose 
+  GraphQL (code first)
+  Would you like to generate CRUD entry points? (Y/n) N
+
+
+# Edit create.user.input.ts
+import { InputType, Int, Field } from '@nestjs/graphql';
+import { IsEmail } from 'class-validator';
+
+@InputType()
+export class CreateUserInput {
+  @Field()
+  name: string;
+  @Field()
+  @IsEmail()
+  email: string;
+  @Field()
+  password: string;
+  @Field({ nullable: true })
+  bio?: string;
+  @Field({ nullable: true })
+  avatar?: string;
+}
+
+
+# Edit user.resolve
+install class validator
+npm i class-validator
+npm i class-transformer
+
+now edit bootstrap function of main.ts 
+app.useGlobalPipes(new ValidationPipe());
+
+
+
