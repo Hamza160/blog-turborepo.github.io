@@ -12,3 +12,6 @@ npx prisma migrate dev --name fixed title on posts
 
 # Faker For Database Seed
 npm i @faker-js/fake
+
+# Graphql 
+npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
