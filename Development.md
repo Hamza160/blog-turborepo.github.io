@@ -8,10 +8,24 @@ npx prisma generate
 npx prisma studio
 
 # Prisma Making Correction or Addition to migrations
+
 npx prisma migrate dev --name fixed title on posts
 
 # Faker For Database Seed
+
 npm i @faker-js/fake
 
-# Graphql 
+# Graphql
+
 npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
+
+# Class Validator
+
+npm i class-validator
+
+# Class Transformer
+
+npm i class-transformer
+
+# Password Hasher
+npm i argon2
