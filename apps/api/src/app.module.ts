@@ -11,12 +11,16 @@ import { TagModule } from './tag/tag.module';
 import { LikeModule } from './like/like.module';
 import { AuthModule } from './auth/auth.module';
 import path from 'node:path';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: path.join(process.cwd(), 'src/graphql/schema.graphql'),
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
     PrismaModule,
     PostModule,

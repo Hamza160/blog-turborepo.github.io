@@ -28,4 +28,17 @@ npm i class-validator
 npm i class-transformer
 
 # Password Hasher
+
 npm i argon2
+
+# JWT Service
+
+npm i @nestjs/jwt
+
+# GENERATE SECRET KEY
+
+openssl rand -hex 32
+
+# Config Module to Access ENV Variables
+
+npm i @nestjs/config
