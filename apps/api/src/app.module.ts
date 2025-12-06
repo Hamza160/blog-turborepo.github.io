@@ -10,6 +10,8 @@ import { TagModule } from './tag/tag.module';
 import { LikeModule } from './like/like.module';
 import path from 'node:path';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { ConfigModule } from '@nestjs/config';
     CommentModule,
     TagModule,
     LikeModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
