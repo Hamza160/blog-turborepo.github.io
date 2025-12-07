@@ -1,3 +1,5 @@
+# Backend
+
 # Prisma Installation SQLite
 
 npm i -D prisma@^5.22.0
@@ -49,4 +51,10 @@ npm i @nestjs/passport passport passport-jwt
 npm i -D @types/passport-jwt
 
 # Guard
+
 nest g gu auth/guards/jwt-auth
+
+# Frontend
+
+npx shadcn@latest init
+
