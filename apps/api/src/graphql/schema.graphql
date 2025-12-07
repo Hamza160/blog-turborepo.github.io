@@ -52,13 +52,20 @@ type Post {
   updatedAt: DateTime!
 }
 
+type AuthPayload {
+  id: Int!
+  name: String!
+  avatar: String
+  accessToken: String!
+}
+
 type Query {
   posts: [Post!]!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  signIn(signInInput: SignInInput!): String!
+  signIn(signInInput: SignInInput!): AuthPayload!
 }
 
 input CreateUserInput {

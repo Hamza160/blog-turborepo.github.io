@@ -5,6 +5,7 @@ import { UserService } from '../user/user.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -15,8 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         configService: ConfigService,
       ): Promise<JwtModuleOptions> => {
         return {
-          secret:
-            configService.get<string>('JWT_SECRET'),
+          secret: configService.get<string>('JWT_SECRET'),
           signOptions: {
             expiresIn: configService.get<string>('JWT_EXPIRES_IN'),
           },
@@ -24,6 +24,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       },
     }),
   ],
-  providers: [AuthResolver, AuthService, UserService, PrismaService],
+  providers: [
+    AuthResolver,
+    AuthService,
+    UserService,
+    PrismaService,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}

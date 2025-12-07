@@ -42,3 +42,11 @@ openssl rand -hex 32
 # Config Module to Access ENV Variables
 
 npm i @nestjs/config
+
+# JWT Authentication
+
+npm i @nestjs/passport passport passport-jwt
+npm i -D @types/passport-jwt
+
+# Guard
+nest g gu auth/guards/jwt-auth
