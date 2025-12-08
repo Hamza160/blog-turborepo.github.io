@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="bg-gradient-to-br from-sky-500 to-indigo-500 text-white">
+    <div className="bg-gradient-to-br from-sky-500 to-indigo-500 text-white pt-16">
       <div className="container mx-auto flex flex-col md:flex-row items-center flex-wrap">
         {/*Left Col*/}
         <div className="w-full flex flex-col items-center justify-center md:w-2/5 text-center md:text-left">
@@ -18,9 +18,9 @@ const Hero = () => {
             Join a community that thrives on learning, creating and growing
             together
           </p>
-        </div>
+    </div>
         {/*Right Col*/}
-        <div className="w-full text-center py-7 md:w-3/5">
+        <div className="w-full flex justify-center text-center py-7 md:w-3/5">
           <Image
             src="/hero.png"
             alt="Hero Section"
