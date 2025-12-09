@@ -58,3 +58,5 @@ nest g gu auth/guards/jwt-auth
 
 npx shadcn@latest init
 
+# Useful Hooks
+npm i @heroicons/react
