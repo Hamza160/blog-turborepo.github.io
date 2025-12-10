@@ -1,12 +1,13 @@
 import Hero from "@/components/Hero";
 import Posts from "@/components/Posts";
+import { fetchPosts } from "../../../actions/postActions";
 
-export default function Home() {
-
+export default async function Home() {
+  const posts = await fetchPosts();
   return (
-    <main>
+    <main className="container m-8 max-w-5xl mx-auto">
       <Hero />
-      <Posts posts={[]} />
+      <Posts posts={posts} />
     </main>
   );
 }

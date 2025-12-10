@@ -41,6 +41,7 @@ type Like {
 type Post {
   id: Int!
   title: String!
+  content: String!
   slug: String
   thumbnail: String
   published: Boolean!
