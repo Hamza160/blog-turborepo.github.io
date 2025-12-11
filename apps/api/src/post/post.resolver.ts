@@ -1,9 +1,7 @@
-import { Resolver, Query, Context } from '@nestjs/graphql';
+import { Resolver, Query, Context, Args, Int } from '@nestjs/graphql';
 import { PostService } from './post.service';
 import { Post } from './entities/post.entity';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth/jwt-auth.guard';
-import { User } from '@prisma/client';
 
 @Resolver(() => Post)
 export class PostResolver {
@@ -11,8 +9,16 @@ export class PostResolver {
 
   // @UseGuards(JwtAuthGuard)
   @Query(() => [Post], { name: 'posts' })
-  findAll(@Context() context) {
-    const user = context.req.user;
-    return this.postService.findAll();
+  findAll(
+    @Context() context: any,
+    @Args('skip', { nullable: true }) skip?: number,
+    @Args('take', { nullable: true }) take?: number,
+  ) {
+    return this.postService.findAll({ skip, take });
+  }
+
+  @Query(() => Int, { name: 'postCount' })
+  count() {
+    return this.postService.count();
   }
 }
