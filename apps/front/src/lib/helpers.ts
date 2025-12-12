@@ -13,15 +13,18 @@ export function transformTakeSkip({
   };
 }
 
-export function calculatePageNumbers({
-  pageNeighbours,
-  totalPages,
-  currentPage,
-}: {
-  pageNeighbours: number;
-  totalPages: number;
-  currentPage: number;
-}) {
+export function calculatePageNumbers(
+  {
+    pageNeighbours,
+    totalPages,
+    currentPage,
+  }
+  : {
+    pageNeighbours: number;
+    totalPages: number;
+    currentPage: number;
+  },
+) {
   const totalNumbers = pageNeighbours * 2 + 3;
   const totalBlocks = totalPages + 2;
 
@@ -42,5 +45,5 @@ export function calculatePageNumbers({
     return [1, ...pages, totalPages];
   }
 
-  return Array.from({ length: totalNumbers }, (_, i) => i + 1);
+  return Array.from({ length: totalPages }, (_, i) => i + 1);
 }
