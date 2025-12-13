@@ -60,3 +60,6 @@ npx shadcn@latest init
 
 # Useful Hooks
 npm i @heroicons/react
+
+# dompurify => For Loading Content Which cotains HTML
+npm i dompurify
