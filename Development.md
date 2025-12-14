@@ -63,3 +63,6 @@ npm i @heroicons/react
 
 # dompurify => For Loading Content Which cotains HTML
 npm i dompurify
+
+# zod
+npm i zod
