@@ -22,7 +22,7 @@ const SignUpForm = () => {
         />
       </div>
       {!!state?.errors?.name && (
-        <p className="text-red-500 text-sm">{state.message}</p>
+        <p className="text-red-500 text-sm">{state?.errors?.name}</p>
       )}
       <div>
         <Label htmlFor="email">Email</Label>
@@ -34,7 +34,7 @@ const SignUpForm = () => {
         />
       </div>
       {!!state?.errors?.email && (
-        <p className="text-red-500 text-sm">{state.message}</p>
+        <p className="text-red-500 text-sm">{state?.errors?.email}</p>
       )}
 
       <div>

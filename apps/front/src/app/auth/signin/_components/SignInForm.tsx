@@ -1,23 +1,36 @@
-import React from 'react';
+"use client"
+import React, { useActionState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/SubmitButton";
+import { signIn } from "@/actions/authActions";
 
 const SignInForm = () => {
+  const [state, action] = useActionState(signIn, undefined);
   return (
-    <form className="flex flex-col gap-2">
+    <form action={action} className="flex flex-col gap-2">
+      {!!state?.message && (
+        <p className="text-red-500 text-sm">{state.message}</p>
+      )}
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="john@example.com"/>
+        <Input id="email" name="email" type="email" placeholder="john@example.com" defaultValue={state?.data?.email}/>
       </div>
+      {!!state?.errors?.email && (
+        <p className="text-red-500 text-sm">{state?.errors?.email}</p>
+      )}
       <div>
         <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" placeholder=""/>
+        <Input id="password" name="password" type="password" placeholder="" defaultValue={state?.data?.password}/>
       </div>
-
+      {!!state?.errors?.password && (
+        <p className="text-red-500 text-sm">{state?.errors?.password}</p>
+      )}
       <SubmitButton>Sign In</SubmitButton>
     </form>
   );
+
+
 }
 
 export default SignInForm;

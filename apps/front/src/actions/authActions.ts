@@ -7,6 +7,8 @@ import { CREATE_USER_MUTATION } from "@/graphql/quries/posts";
 import { print } from "graphql";
 import { redirect } from "next/navigation";
 import { LoginFormSchema } from "@/lib/schemas/loginFormSchema";
+import { SIGN_IN_MUTATION } from "@/graphql/quries/auth";
+import { revalidatePath } from "next/cache";
 
 export async function signUp(
   stats: SignUpFormState,
@@ -23,19 +25,25 @@ export async function signUp(
     };
   }
 
-  const data = await fetchGraphQL(print(CREATE_USER_MUTATION), {
+  const data = fetchGraphQL(print(CREATE_USER_MUTATION), {
     input: {
       ...validatedFields.data,
     },
   });
 
-  if (data.errors) return { data: Object.fromEntries(formData.entries()), message: "Something went wrong" };
+  if (data.errors)
+    return {
+      data: Object.fromEntries(formData.entries()),
+      message: "Something went wrong",
+    };
 
   redirect("/auth/signin");
 }
 
-
-export async function signIn(state: SignUpFormState, formData: FormData): Promise<SignUpFormState> {
+export async function signIn(
+  state: SignUpFormState,
+  formData: FormData,
+): Promise<SignUpFormState> {
   const validatedFields = LoginFormSchema.safeParse(
     Object.fromEntries(formData.entries()),
   );
@@ -47,4 +55,20 @@ export async function signIn(state: SignUpFormState, formData: FormData): Promis
     };
   }
 
+  const data = await fetchGraphQL(print(SIGN_IN_MUTATION), {
+    input: {
+      ...validatedFields.data,
+    },
+  });
+
+  if (data.errors) {
+    return {
+      data: Object.fromEntries(formData.entries()),
+      message: "Invalid Credentials",
+    };
+  }
+
+  // TODO:: create a session
+  revalidatePath("/");
+  redirect("/");
 }
