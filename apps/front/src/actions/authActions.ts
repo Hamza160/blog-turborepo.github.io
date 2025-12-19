@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { LoginFormSchema } from "@/lib/schemas/loginFormSchema";
 import { SIGN_IN_MUTATION } from "@/graphql/quries/auth";
 import { revalidatePath } from "next/cache";
+import { createSession } from "@/lib/session";
 
 export async function signUp(
   stats: SignUpFormState,
@@ -68,7 +69,14 @@ export async function signIn(
     };
   }
 
-  // TODO:: create a session
+  await createSession({
+    user: {
+      id: data.signIn.id,
+      name: data.signIn.name,
+      avatar: data.signIn.avatar,
+    },
+    accessToken:data.signIn.accessToken
+  });
   revalidatePath("/");
   redirect("/");
 }
