@@ -54,6 +54,10 @@ npm i -D @types/passport-jwt
 
 nest g gu auth/guards/jwt-auth
 
+# Google Auth 
+npm i passport-google-oauth20
+npm i -D @types/passport-google-oauth20
+
 # Frontend
 
 npx shadcn@latest init
